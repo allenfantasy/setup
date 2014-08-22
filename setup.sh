@@ -12,7 +12,7 @@ sudo apt-get install -y nginx
 # install nodejs
 git clone https://github.com/creationix/nvm.git ~/.nvm
 echo 'export NVM_DIR="/home/deployer/.nvm"' >> ~/.profile
-echo '[-s "$NVM_DIR/nvm.sh" ] . "$NVM_DIR/nvm.sh"' >> ~/.profile
+echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> ~/.profile
 cp npmrc ~/.npmrc # build up registry
 source ~/.bashrc
 NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
