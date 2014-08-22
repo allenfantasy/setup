@@ -1,0 +1,17 @@
+#!/bin/sh
+. /home/deployer/.profile
+read oldrev newrev refname
+BRANCH=${refname#refs/heads/}
+if [ "$BRANCH" != "master" ]; then
+  echo "You're not pushing from master so it won't deploy."
+  exit 0
+fi
+
+unset GIT_INDEX_FILE
+export GIT_WORK_TREE=/home/deployer/apps/meiya-node
+export GIT_DIR=/home/deployer/gitrepos/meiya.git
+
+git checkout -f
+cd $GIT_WORK_TREE
+npm install --production
+pm2 reload all

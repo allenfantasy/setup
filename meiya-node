@@ -1,0 +1,34 @@
+upstream meiya_node {
+  server 127.0.0.1:3000;
+}
+
+server {
+  listen 80;
+  #server_name ....
+  #access_log ....
+  #error_log ....
+
+  set $public /home/deployers/apps/meiya-node/public;
+
+  location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|human.txt|favicon.ico)$ {
+    root $public;
+    access_log off;
+    expires max;
+  }
+
+  location / {
+    #this is the ip:port where your node app runs
+    #root /home/deployer/apps/meiya-node;
+
+    # index files
+    #index index.html index.htm;
+
+    proxy_redirect off;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Photo $thescheme;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_pass http://meiya_node;
+  }
+}
