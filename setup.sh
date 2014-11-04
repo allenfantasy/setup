@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # setup user & ssh
 adduser deployer -ingroup sudo
 mkdir .ssh
