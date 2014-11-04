@@ -1,31 +1,34 @@
 #!/bin/sh
 
-# setup user & ssh
-adduser deployer -ingroup sudo
-mkdir .ssh
-
-# install prerequisites
+### install prerequisites
 sudo apt-get update
 sudo apt-get install -y wget vim build-essential openssl openssl-server libreadline6 libreadline6-dev libsqlite3-dev libmysqlclient-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev language-pack-zh-hans python-software-properties
 
-# install nginx
+### install nginx
 sudo apt-get install -y nginx
 
-# install nodejs
+### install nodejs
 git clone https://github.com/creationix/nvm.git ~/.nvm
 echo 'export NVM_DIR="/home/deployer/.nvm"' >> ~/.profile
 echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> ~/.profile
-cp npmrc ~/.npmrc # build up registry
-source ~/.bashrc
+
+# build up registry
+cp npmrc ~/.npmrc
+
+# load nvm immediately
+if [ -f "$HOME/.profile" ]; then
+  . "$HOME/.profile"
+fi
+
 NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
 
-# install pm2
+### install pm2
 npm install -g pm2
 
-# record current dir
+### record current dir
 dir=`pwd`
 
-# setup gitrepos
+### setup gitrepos
 mkdir ~/gitrepos
 cd ~/gitrepos
 git init --bare meiya.git
