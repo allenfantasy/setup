@@ -1,5 +1,8 @@
 #!/bin/sh
+
+# load nodejs env
 . /home/deployer/.profile
+
 read oldrev newrev refname
 BRANCH=${refname#refs/heads/}
 if [ "$BRANCH" != "master" ]; then
@@ -11,7 +14,19 @@ unset GIT_INDEX_FILE
 export GIT_WORK_TREE=/home/deployer/apps/meiya-node
 export GIT_DIR=/home/deployer/gitrepos/meiya.git
 
+# fetch the code
 git checkout -f
+
+# npm install
 cd $GIT_WORK_TREE
 npm install --production
-pm2 reload all
+
+# copy processes.json if needed
+if [ ! -f "$HOME/processes.json" ]; then
+  cp $GIT_WORK_TREE/processes.json $HOME
+fi
+
+# start/restart meiya
+cd $HOME
+pm2 startOrRestart processes.json
+#pm2 reload all
