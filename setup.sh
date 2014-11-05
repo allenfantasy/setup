@@ -35,5 +35,9 @@ git init --bare meiya.git
 cd meiya.git/hooks
 cp $dir/post-receive post-receive
 
-# make directories for app logging
+# make directories for app
 mkdir ~/logs
+mkdir -p ~/apps/meiya-node
+
+# about nginx
+./nginx.sh
