@@ -23,8 +23,7 @@ fi
 NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
 nvm alias default 0.10
 
-### install pm2
-npm install -g pm2
+npm install -g pm2 bower
 
 ### record current dir
 dir=`pwd`

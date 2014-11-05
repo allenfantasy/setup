@@ -27,6 +27,5 @@ if [ ! -f "$HOME/processes.json" ]; then
 fi
 
 # start/restart meiya
-cd $HOME
-pm2 startOrRestart processes.json
+pm2 startOrRestart $HOME/processes.json && pm2 save
 #pm2 reload all
