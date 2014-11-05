@@ -23,7 +23,7 @@ fi
 NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
 nvm alias default 0.10
 
-npm install -g pm2 bower
+npm install -g pm2@0.9.6
 
 ### record current dir
 dir=`pwd`
@@ -34,3 +34,6 @@ cd ~/gitrepos
 git init --bare meiya.git
 cd meiya.git/hooks
 cp $dir/post-receive post-receive
+
+# make directories for app logging
+mkdir ~/logs
