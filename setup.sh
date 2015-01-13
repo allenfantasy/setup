@@ -65,5 +65,6 @@ cp $dir/post-receive post-receive
 mkdir ~/logs
 mkdir -p ~/$app_folder
 
-# about nginx
-cat nginx.sh | sh
+# config nginx
+sudo chmod a+x nginx.sh
+./nginx.sh
