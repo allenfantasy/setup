@@ -11,8 +11,8 @@ if [ "$BRANCH" != "master" ]; then
 fi
 
 unset GIT_INDEX_FILE
-export GIT_WORK_TREE=/home/deployer/apps/meiya-node
-export GIT_DIR=/home/deployer/gitrepos/meiya.git
+export GIT_WORK_TREE=/home/deployer/%APP_PATH%
+export GIT_DIR=/home/deployer/gitrepos/%APP_NAME%.git
 
 # fetch the code
 git checkout -f
@@ -26,6 +26,6 @@ if [ ! -f "$HOME/processes.json" ]; then
   cp $GIT_WORK_TREE/processes.json $HOME
 fi
 
-# start/restart meiya
+# start/restart %APP_NAME%
 pm2 startOrRestart $HOME/processes.json
 #pm2 reload all

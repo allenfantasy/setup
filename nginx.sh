@@ -1,3 +1,4 @@
+node naming.js
 # start nginx
 sudo service nginx start
 # setup nginx config

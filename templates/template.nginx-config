@@ -1,5 +1,5 @@
-upstream meiya_node {
-  server 127.0.0.1:3000;
+upstream %APP_NAME% {
+  server 127.0.0.1:%PORT%;
 }
 
 server {
@@ -8,7 +8,7 @@ server {
   #access_log ....
   #error_log ....
 
-  set $public /home/deployers/apps/meiya-node/public;
+  set $public /home/deployers/%PUBLIC_PATH%
 
   location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|human.txt|favicon.ico)$ {
     root $public;
@@ -29,6 +29,6 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Host $http_host;
     proxy_set_header X-NginX-Proxy true;
-    proxy_pass http://meiya_node;
+    proxy_pass http://%APP_NAME%;
   }
 }

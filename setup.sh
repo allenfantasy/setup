@@ -7,8 +7,26 @@ sudo apt-get install -y wget vim build-essential openssl libreadline6 libreadlin
 ### install nginx
 sudo apt-get install -y nginx
 
+### install mongodb
+while true; do
+  read -p "Do you want to install MongoDB (y/n)? " answer
+  case $answer in
+    [Yy]*)
+      sudo apt-get -y install mongodb-server
+      break
+      ;;
+    [Nn]*)
+      break
+      ;;
+    *)
+      echo "Please answer yes[y/N] or no[n/N]!"
+      ;;
+  esac
+done
+
 ### install nodejs
 git clone https://github.com/creationix/nvm.git ~/.nvm
+#curl https://raw.githubusercontent.com/creationix/nvm/v0.22.1/install.sh | bash
 echo 'export NVM_DIR="/home/deployer/.nvm"' >> ~/.profile
 echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> ~/.profile
 
@@ -20,24 +38,32 @@ if [ -f "$HOME/.profile" ]; then
   . "$HOME/.profile"
 fi
 
-NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
-nvm alias default 0.10
+#NVM_NODEJS_ORG_MIRROR=http://dist.u.qiniudn.com nvm install 0.10
 
+# install pm2
+nvm install 0.10.33
+nvm alias default 0.10.33
 npm install -g pm2@0.9.6
+
+# build nginx config file & post-receive hook
+node build-file.js
 
 ### record current dir
 dir=`pwd`
+app_name='turf'
+app_folder=~/apps/$app_name
+git_folder=$app_name.git
 
 ### setup gitrepos
 mkdir ~/gitrepos
 cd ~/gitrepos
-git init --bare meiya.git
-cd meiya.git/hooks
+git init --bare $git_folder
+cd $git_folder/hooks
 cp $dir/post-receive post-receive
 
 # make directories for app
 mkdir ~/logs
-mkdir -p ~/apps/meiya-node
+mkdir -p ~/$app_folder
 
 # about nginx
-./nginx.sh
+cat nginx.sh | sh
