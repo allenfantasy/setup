@@ -46,7 +46,7 @@ nvm alias default 0.10.33
 npm install -g pm2@0.9.6
 
 # build nginx config file & post-receive hook
-node build-file.js
+./build-file.js
 
 ### record current dir
 dir=`pwd`
