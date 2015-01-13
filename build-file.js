@@ -9,7 +9,7 @@ template = fs.readFileSync('templates/nginx-config').toString();
 template = template.replace(new RegExp("%PORT%", "g"), config.app_port);
 template = template.replace(new RegExp("%APP_NAME%", "g"), config.app_name);
 template = template.replace(new RegExp("%PUBLIC_PATH%", "g"), config.public_path);
-fs.writeFileSync('nginx-config', template);
+fs.writeFileSync(config.app_name, template);
 
 // nginx deploy script
 template = fs.readFileSync('templates/nginx.sh').toString();

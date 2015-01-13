@@ -66,5 +66,6 @@ mkdir ~/logs
 mkdir -p ~/$app_folder
 
 # config nginx
+cd $dir
 sudo chmod a+x nginx.sh
 ./nginx.sh

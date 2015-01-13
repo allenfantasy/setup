@@ -18,7 +18,7 @@ server {
 
   location / {
     #this is the ip:port where your node app runs
-    #root /home/deployer/apps/meiya-node;
+    #root /home/deployer/apps/%APP_NAME%;
 
     # index files
     #index index.html index.htm;
