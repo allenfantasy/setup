@@ -8,7 +8,7 @@ server {
   #access_log ....
   #error_log ....
 
-  set $public /home/deployers/%PUBLIC_PATH%
+  set $public /home/%USER%/%PUBLIC_PATH%
 
   location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|human.txt|favicon.ico)$ {
     root $public;
@@ -18,7 +18,7 @@ server {
 
   location / {
     #this is the ip:port where your node app runs
-    #root /home/deployer/apps/%APP_NAME%;
+    #root /home/%USER%/apps/%APP_NAME%;
 
     # index files
     #index index.html index.htm;
