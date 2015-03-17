@@ -3,6 +3,7 @@
 var program = require('commander');
 var async = require('async');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 var config = require('./app.config');
 
 function buildFiles(params) {
@@ -47,16 +48,19 @@ var params = {
 };
 
 // Cleanup first
-fs.readdir('output', function(err, files) {
-  async.each(files, function(file, cb) {
-    fs.unlink('output/' + file, cb);
-  }, function(err) {
-    if (err) {
-      console.log(err);
-      console.log('something is wrong');
-      return;
-    }
-    buildFiles(params);
+mkdirp('output', function(err) {
+  if (err) throw err;
+
+  fs.readdir('output', function(err, files) {
+    async.each(files, function(file, cb) {
+      fs.unlink('output/' + file, cb);
+    }, function(err) {
+      if (err) {
+        console.log(err);
+        console.log('something is wrong');
+        return;
+      }
+      buildFiles(params);
+    });
   });
 });
-
