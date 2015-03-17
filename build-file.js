@@ -4,7 +4,7 @@ var program = require('commander');
 var async = require('async');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
-var config = require('./app.config');
+var config = require('./config.js');
 
 function buildFiles(params) {
   var template;
