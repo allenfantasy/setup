@@ -1,4 +1,3 @@
-node build-file.js
 # start nginx
 sudo service nginx start
 # setup nginx config

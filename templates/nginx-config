@@ -8,7 +8,7 @@ server {
   #access_log ....
   #error_log ....
 
-  set $public /home/%USER%/%PUBLIC_PATH%
+  set $public /home/%USER%/%PUBLIC_PATH%;
 
   location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|human.txt|favicon.ico)$ {
     root $public;
